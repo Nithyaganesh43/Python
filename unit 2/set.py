@@ -1,0 +1,15 @@
+s={2,1,6}
+print(s)
+s.add(4)
+print(s)
+l=[5,8,6,3]
+s.update(l)
+print(s)
+print(s.pop())
+print(s.pop())
+print(s.pop())
+s.remove(4)
+print(s)
+s.discard(5)
+s.discard(5)
+print(s)
