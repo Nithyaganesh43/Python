@@ -16,16 +16,16 @@ document = {
     "age": 30,
     "email": "john.doe@example.com"
 }
-inserted_id = collection.insert_one(document).inserted_id
-print(f"Inserted document with ID: {inserted_id}")
+collection.insert_one(document)
+print("Inserted document ")
 
 # Insert multiple documents
 documents = [
     {"name": "Jane Smith", "age": 25, "email": "jane.smith@example.com"},
     {"name": "Mike Johnson", "age": 35, "email": "mike.johnson@example.com"}
 ]
-inserted_ids = collection.insert_many(documents).inserted_ids
-print(f"Inserted documents with IDs: {inserted_ids}")
+collection.insert_many(documents)
+print(f"Inserted documents ")
 
 # 2. Read (Find)
 # Find a single document
@@ -35,7 +35,7 @@ print(one_document)
 
 # Find multiple documents
 print("\nFinding multiple documents:")
-all_documents = collection.find({"age": {"$gt": 20}})
+all_documents = collection.find({})
 for doc in all_documents:
     print(doc)
 
@@ -43,15 +43,14 @@ for doc in all_documents:
 # Update a single document
 print("\nUpdating one document:")
 result = collection.update_one(
-    {"name": "John Doe"},
-    {"$set": {"age": 31}}
+    {"name": "John Doe"},{"$set": {"age": 30}}
 )
 print(f"Matched {result.matched_count} document(s) and modified {result.modified_count} document(s).")
 
 # Update multiple documents
 print("\nUpdating multiple documents:")
 result = collection.update_many(
-    {"age": {"$lt": 30}},
+    {"age": 30},
     {"$set": {"status": "young"}}
 )
 print(f"Matched {result.matched_count} document(s) and modified {result.modified_count} document(s).")
@@ -64,8 +63,22 @@ print(f"Deleted {result.deleted_count} document(s).")
 
 # Delete multiple documents
 print("\nDeleting multiple documents:")
-result = collection.delete_many({"status": "young"})
+result = collection.delete_many({"age":30})
 print(f"Deleted {result.deleted_count} document(s).")
 
+
+
+
+print("\nDeleting all datas:")
+collection.delete_many({})
+
+
+print("\nDeleting collection:")
+collection.drop()
+
+
+
+print("\nDeleting data base:")
+client.drop_database("test_database")
 # Close the connection
 client.close()
